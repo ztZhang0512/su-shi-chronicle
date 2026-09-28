@@ -1,6 +1,6 @@
 <script setup>
-// 仓库地址：建好 GitHub 仓库后把用户名替换成自己的
-const GITHUB_URL = 'https://github.com/your-github-username/su-shi-chronicle'
+// 项目 GitHub 仓库
+const GITHUB_URL = 'https://github.com/ztZhang0512/su-shi-chronicle'
 
 const links = [
   { to: '/', label: '一蓑烟雨' },

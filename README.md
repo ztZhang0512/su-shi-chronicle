@@ -8,7 +8,7 @@
 | **诗词编年** | **行迹地图** |
 | ![诗词编年](docs/screenshots/poems.png) | ![行迹地图](docs/screenshots/map.png) |
 
-在线访问（启用 GitHub Pages 后）：`https://<你的用户名>.github.io/su-shi-chronicle/`
+在线访问（GitHub Pages）：**https://ztzhang0512.github.io/su-shi-chronicle/**
 
 ## 功能特性
 
@@ -46,7 +46,7 @@ Vue 3 · Vite · vue-router（hash 模式）· ECharts（core 按需引入）· 
 
 ## 部署
 
-GitHub Pages 工作流见 [.github/workflows/deploy.yml](.github/workflows/deploy.yml)：推送到 main 分支后自动构建并发布。仓库设置中 Pages → Source 选择 **GitHub Actions** 即可。
+GitHub 仓库：[ztZhang0512/su-shi-chronicle](https://github.com/ztZhang0512/su-shi-chronicle) · 推送到 main 分支后自动构建并发布。
 
 ## License
 
