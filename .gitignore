@@ -1,0 +1,7 @@
+node_modules/
+dist/
+检查截图/
+归档/
+src/assets/fonts/
+*.log
+.DS_Store

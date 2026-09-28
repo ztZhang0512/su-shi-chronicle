@@ -1,0 +1,36 @@
+<script setup>
+// 仓库地址：建好 GitHub 仓库后把用户名替换成自己的
+const GITHUB_URL = 'https://github.com/your-github-username/su-shi-chronicle'
+
+const links = [
+  { to: '/', label: '一蓑烟雨' },
+  { to: '/shengping', label: '生平长卷' },
+  { to: '/shici', label: '诗词编年' },
+  { to: '/ditu', label: '行迹地图' }
+]
+</script>
+
+<template>
+  <nav class="site-nav">
+    <div class="site-nav-inner">
+      <router-link to="/" class="site-nav-brand">一蓑烟雨</router-link>
+      <div class="site-nav-right">
+        <div class="site-nav-links">
+          <router-link v-for="l in links" :key="l.to" :to="l.to">{{ l.label }}</router-link>
+        </div>
+        <a
+          class="site-nav-github"
+          :href="GITHUB_URL"
+          target="_blank"
+          rel="noopener"
+          aria-label="GitHub 仓库"
+          title="GitHub 仓库"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+</template>

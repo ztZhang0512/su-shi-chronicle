@@ -1,0 +1,271 @@
+/* ============================================================
+ * 组件样式：印章 / 界格 / 水墨分隔 / 竖排 / 牌匾 / 导航
+ * 朱砂只出现在印章、编年节点、朱批三处（设计方案原则 2）
+ * ============================================================ */
+
+/* ---- 顶部导航 ---- */
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(235, 237, 230, 0.88);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--ink-border);
+}
+
+.site-nav-inner {
+  max-width: var(--content-wide);
+  margin-inline: auto;
+  padding-inline: 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-nav-brand {
+  font-family: var(--font-display);
+  font-size: 26px;
+  letter-spacing: 0.12em;
+  color: var(--ink-text);
+}
+
+.site-nav-brand:hover {
+  text-decoration: none;
+  color: var(--ink-accent-deep);
+}
+
+.site-nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.site-nav-links a {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  color: var(--ink-text-2);
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease-out, border-color 0.2s ease-out;
+}
+
+.site-nav-links a:hover {
+  color: var(--ink-text);
+  text-decoration: none;
+}
+
+.site-nav-links a.router-link-active {
+  color: var(--ink-accent-deep);
+  border-bottom-color: var(--ink-accent);
+}
+
+.site-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.site-nav-github {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  color: var(--ink-text-2);
+  transition: color 0.2s ease-out, transform 0.15s ease-out;
+}
+
+.site-nav-github svg {
+  width: 20px;
+  height: 20px;
+}
+
+.site-nav-github:hover {
+  color: var(--ink-text);
+}
+
+.site-nav-github:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 640px) {
+  .site-nav {
+    position: static;
+  }
+  .site-nav-inner {
+    height: auto;
+    flex-direction: column;
+    gap: 4px;
+    padding-block: 10px;
+  }
+  .site-nav-links a {
+    padding: 4px 10px;
+    font-size: 14px;
+  }
+}
+
+/* ---- 印章（朱砂之一：仪式性行动、落款） ---- */
+
+.seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  background: var(--ink-seal);
+  color: var(--ink-seal-paper);
+  font-family: var(--font-poem);
+  font-size: 15px;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  border-radius: var(--radius);
+  line-height: 1.6;
+}
+
+.seal-bordered {
+  background: transparent;
+  color: var(--ink-seal);
+  border: 1px solid var(--ink-seal);
+}
+
+/* ---- 界格行（编年列表的分组方式：细线，不是卡片） ---- */
+
+.jie-row {
+  border-top: 1px solid var(--ink-border);
+  padding-block: 20px;
+}
+
+.jie-list {
+  border-bottom: 1px solid var(--ink-border);
+}
+
+/* ---- 水墨分隔线 ---- */
+
+.ink-divider {
+  border: 0;
+  height: 1px;
+  margin: 0 auto;
+  width: min(320px, 60%);
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--ink-border) 20%,
+    var(--ink-border) 80%,
+    transparent
+  );
+}
+
+/* ---- 竖排文本 ---- */
+
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: 0.32em;
+}
+
+/* ---- 纸面（详情页原文用，无阴影） ---- */
+
+.paper {
+  background: var(--ink-surface);
+  border: 1px solid var(--ink-border);
+  border-radius: var(--radius);
+}
+
+/* ---- 印章式按钮（仪式性入口） ---- */
+
+.btn-seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 8px 26px;
+  font-family: var(--font-ui);
+  font-size: 16px;
+  letter-spacing: 0.28em;
+  text-indent: 0.28em;
+  color: var(--ink-accent-deep);
+  border: 1px solid var(--ink-accent);
+  border-radius: var(--radius);
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease-out, color 0.2s ease-out;
+}
+
+.btn-seal:hover,
+.btn-seal:focus-visible {
+  background: var(--ink-accent);
+  color: var(--ink-on-accent);
+  text-decoration: none;
+}
+
+.btn-seal:active {
+  transform: translateY(1px);
+}
+
+/* ---- 编年节点（朱砂之二：年代标记） ---- */
+
+.year-node {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.year-node::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--ink-seal);
+  flex-shrink: 0;
+}
+
+.year-node .year {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--ink-text);
+}
+
+/* ---- 朱批（朱砂之三：批注强调） ---- */
+
+.zhu-note {
+  color: var(--ink-seal);
+  font-size: 14px;
+}
+
+/* ---- 标签 ---- */
+
+.tag {
+  display: inline-block;
+  padding: 1px 10px;
+  border: 1px solid var(--ink-border);
+  border-radius: var(--radius);
+  font-size: 13px;
+  color: var(--ink-text-2);
+  line-height: 1.8;
+  white-space: nowrap;
+}
+
+/* ---- 牌匾（短标题用，不用于长段落） ---- */
+
+.plaque {
+  display: inline-block;
+  padding: 10px 22px;
+  border: 1px solid var(--ink-border);
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  font-size: 30px;
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
+  color: var(--ink-text);
+  background: rgba(243, 245, 240, 0.6);
+}
+
+/* ---- 年份行书大字（时间轴与列表共用） ---- */
+
+.year-calligraphy {
+  font-family: var(--font-display);
+  color: var(--ink-text);
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+}
