@@ -206,6 +206,14 @@ function lineItem(leg, style) {
 function linesData() {
   return legs.map((leg, i) => {
     if (!playing.value) {
+      // 选中地点：高亮与其相连的路段（进与出），其余压暗成虚影
+      const sel = selectedId.value
+      if (sel) {
+        const touches = leg.from === sel || leg.to === sel
+        return lineItem(leg, touches
+          ? { color: leg.exile ? '#9E2B25' : '#596E76', opacity: 0.9, width: 2.2 }
+          : { color: '#87A6B3', opacity: 0.12, width: 1 })
+      }
       return lineItem(leg, { color: leg.exile ? '#9E2B25' : '#87A6B3', opacity: 0.55, width: 1.3 })
     }
     if (i < legIndex.value) {
