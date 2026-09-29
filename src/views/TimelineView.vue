@@ -185,8 +185,8 @@ function goTo(i) {
               v-if="ev.deep"
               class="deep-link"
               :to="`/shijian/${ev.deep}`"
-              title="阅读事件专题"
-            >深潜</router-link>
+              title="读这一事件的始末"
+            >始末</router-link>
             <p class="ev-desc text-muted">{{ ev.desc }}</p>
             <div v-if="ev.stories" class="ev-stories">
               <div v-for="s in ev.stories" :key="s.t" class="ev-story">
