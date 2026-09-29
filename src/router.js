@@ -31,6 +31,12 @@ const routes = [
     name: 'map',
     component: () => import('./views/MapView.vue'),
     meta: { title: '行迹地图' }
+  },
+  {
+    path: '/renwu',
+    name: 'people',
+    component: () => import('./views/PeopleView.vue'),
+    meta: { title: '人物谱' }
   }
 ]
 

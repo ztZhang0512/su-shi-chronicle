@@ -19,6 +19,7 @@ const daily = computed(() => quotes[Math.floor(Math.random() * quotes.length)])
     <nav class="hero-entries" aria-label="站点入口">
       <router-link class="btn-seal" to="/shengping">走进生平</router-link>
       <router-link class="btn-seal" to="/shici">诗词编年</router-link>
+      <router-link class="btn-seal" to="/renwu">人物谱</router-link>
       <router-link class="btn-seal" to="/ditu">行迹地图</router-link>
     </nav>
 

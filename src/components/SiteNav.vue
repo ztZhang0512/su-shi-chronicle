@@ -6,6 +6,7 @@ const links = [
   { to: '/', label: '一蓑烟雨' },
   { to: '/shengping', label: '生平长卷' },
   { to: '/shici', label: '诗词编年' },
+  { to: '/renwu', label: '人物谱' },
   { to: '/ditu', label: '行迹地图' }
 ]
 </script>
