@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
+import { useRoute } from 'vue-router'
 // 按需引入：关系图 + 提示框
 import * as echarts from 'echarts/core'
 import { GraphChart } from 'echarts/charts'
@@ -11,11 +12,13 @@ import { loadCorpus } from '../data/corpus'
 
 echarts.use([GraphChart, TooltipComponent, CanvasRenderer])
 
+const route = useRoute()
+
 const chartEl = ref(null)
 let chart = null
 
 const selectedId = ref('su-shi')
-const selected = computed(() => people.find(p => p.id === selectedId.value) || people[0])
+const selected = computed(() => people.find(p => p.id === selectedId.value) || null)
 const personById = Object.fromEntries(people.map(p => [p.id, p]))
 
 const allEdges = (() => {
@@ -78,8 +81,8 @@ function layoutNodes(w, h) {
     205, [15, 60, 105, 150, 195, 240, 285, 330])
   ring(['ou-yang-xiu', 'wang-an-shi', 'si-ma-guang', 'zhang-dun', 'song-shen-zong'],
     335, [95, 135, 175, 215, 255])
-  ring(['wen-tong', 'fo-yin', 'can-liao', 'huang-ting-jian', 'qin-guan'],
-    335, [-5, -45, -80, 30, 65])
+  ring(['wen-tong', 'fo-yin', 'can-liao', 'huang-ting-jian', 'qin-guan', 'mi-fu'],
+    335, [-80, -50, -20, 10, 40, 70])
   pos['cao-tai-hou'] = [cx + Math.cos(-90 * Math.PI / 180) * 360 * s, cy - Math.sin(-90 * Math.PI / 180) * 360 * s]
   return pos
 }
@@ -177,6 +180,9 @@ const onResize = () => {
 }
 
 onMounted(async () => {
+  // 支持 /renwu?p=<人物id> 直接定位（事件专题的相关人物链接）
+  const qp = route.query.p
+  if (qp && personById[String(qp)]) selectedId.value = String(qp)
   chart = echarts.init(chartEl.value)
   // 字章要用页面字体：等行书/文楷的对应字符子集就绪再生成头像
   try {
@@ -191,6 +197,14 @@ onMounted(async () => {
   chart.setOption(buildOption(w, h))
   chart.on('click', params => {
     if (params.dataType === 'node') selectedId.value = params.name
+  })
+  // 点击空白处取消选中；拖拽平移后的 click 不算
+  const zr = chart.getZr()
+  let downPos = null
+  zr.on('mousedown', p => { downPos = [p.offsetX, p.offsetY] })
+  zr.on('click', p => {
+    const moved = downPos && Math.hypot(p.offsetX - downPos[0], p.offsetY - downPos[1]) > 6
+    if (!p.target && !moved) selectedId.value = null
   })
   window.addEventListener('resize', onResize)
 })
@@ -222,15 +236,17 @@ function poemTitle(pid) {
   <section class="container-wide people-page">
     <header class="people-head">
       <h1 class="plaque">人物谱</h1>
-      <p class="text-muted people-sub">与东坡相遇的人们；点击印章看其人其事，拖拽平移、滚轮缩放</p>
+      <p class="text-muted people-sub">与东坡相遇的人们；点击头像看其人其事，拖拽平移、滚轮缩放</p>
     </header>
 
     <div class="people-layout">
       <div class="people-wrap paper">
         <div ref="chartEl" class="people-canvas" aria-label="苏轼人物关系图"></div>
         <p class="people-legend text-faint">
-          <template v-for="(g, key) in GROUPS" :key="key">
-            <span v-if="key !== 'center'" class="dot" :style="{ background: g.color }"></span>{{ g.name }}
+          <template v-for="(g, key) in GROUPS">
+            <template v-if="key !== 'center'">
+              <span :key="key + '-dot'" class="dot" :style="{ background: g.color }"></span>{{ g.name }}
+            </template>
           </template>
         </p>
       </div>
@@ -264,7 +280,7 @@ function poemTitle(pid) {
               </router-link>
             </div>
 
-            <div class="aside-block">
+            <div v-if="!selected.center" class="aside-block">
               <h3 class="aside-title">出现的生平</h3>
               <p class="person-years-list">
                 <span v-for="y in selected.appeared" :key="y" class="year-calligraphy year-chip">{{ y }}</span>
@@ -272,6 +288,16 @@ function poemTitle(pid) {
               <router-link class="place-poem" to="/shengping">
                 <span class="text-faint">在生平长卷中查看这些年份</span>
               </router-link>
+            </div>
+          </div>
+
+          <div v-else key="intro">
+            <h2 class="person-name font-display">人物谱</h2>
+            <p class="text-faint person-years">与东坡相遇的人们</p>
+            <p class="person-summary text-muted">点击图中的印章，查看其人其事。</p>
+            <div v-for="(g, key) in GROUPS" :key="key" class="aside-block intro-group">
+              <h3 class="aside-title">{{ g.name }}</h3>
+              <p class="text-muted intro-names">{{ people.filter(p => p.group === key).map(p => p.name).join(' · ') }}</p>
             </div>
           </div>
         </Transition>
@@ -445,6 +471,11 @@ function poemTitle(pid) {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+}
+
+.intro-names {
+  font-size: 14px;
+  line-height: 1.9;
 }
 
 .year-chip {

@@ -27,6 +27,12 @@ const routes = [
     meta: { title: '诗词编年' }
   },
   {
+    path: '/shijian/:id',
+    name: 'topic',
+    component: () => import('./views/TopicView.vue'),
+    meta: { title: '事件专题' }
+  },
+  {
     path: '/ditu',
     name: 'map',
     component: () => import('./views/MapView.vue'),

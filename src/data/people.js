@@ -6,7 +6,7 @@ export const GROUPS = {
   center: { name: '东坡本人', color: '#9E2B25' },
   family: { name: '家人', color: '#87A6B3' },
   court: { name: '座主与政坛', color: '#3A3A3A' },
-  sangha: { name: '方外与门生', color: '#8BA78B' },
+  sangha: { name: '文友与方外', color: '#8BA78B' },
   palace: { name: '宫闱', color: '#596E76' }
 }
 
@@ -218,6 +218,18 @@ export const people = [
     ],
     poemIds: ['hanshi-yu'],
     appeared: [1086]
+  },
+  {
+    id: 'mi-fu', name: '米芾', mono: '米', group: 'sangha',
+    tag: '书画好友 · 宋四家', years: '1051 – 1107',
+    tagline: '臣书刷字。',
+    summary: '字元章，号海岳外史，人称「米颠」。书画天纵，宋四家之一。元丰五年专程到黄州雪堂拜访苏轼，经他一劝遍临晋人法帖，书风脱胎换骨；此后书问往还三十年。建中靖国元年苏轼北归，真州一晤竟成最后一面。',
+    stories: [
+      { t: '雪堂问学', text: '元丰五年，米芾专程到黄州拜访苏轼，于雪堂论书画。轼劝他「专学晋人」——此后米芾遍临晋帖，书风脱胎换骨、自成一格。这次会面被称为宋代书法史的转折点，一句劝，改变了「宋四家」的成色。（翁方纲《米海岳年谱》）' },
+      { t: '真州最后一面', text: '建中靖国元年六月，苏轼北归过真州，米芾时知真州，设宴相待，欢谈竟日。别后轼病加重，致书米芾：「两日来疾有增无减。」米芾遣人送麦门冬饮子。两个月后，苏轼卒于常州——宋四家从此再无会面。（〈与米元章书〉）' }
+    ],
+    poemIds: [],
+    appeared: [1082, 1101]
   },
   {
     id: 'qin-guan', name: '秦观', mono: '秦', group: 'sangha',

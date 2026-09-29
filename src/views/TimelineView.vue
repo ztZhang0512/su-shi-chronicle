@@ -181,6 +181,12 @@ function goTo(i) {
               <span v-if="ev.eraLabel" class="ev-era text-faint">{{ ev.eraLabel }}</span>
             </div>
             <h3 class="ev-title">{{ ev.title }}</h3>
+            <router-link
+              v-if="ev.deep"
+              class="deep-link"
+              :to="`/shijian/${ev.deep}`"
+              title="阅读事件专题"
+            >深潜</router-link>
             <p class="ev-desc text-muted">{{ ev.desc }}</p>
             <div v-if="ev.stories" class="ev-stories">
               <div v-for="s in ev.stories" :key="s.t" class="ev-story">
@@ -352,6 +358,27 @@ function goTo(i) {
   margin-top: 6px;
   font-size: 15px;
   line-height: 1.85;
+}
+
+.deep-link {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.7;
+  letter-spacing: 0.1em;
+  color: var(--ink-seal);
+  border: 1px solid var(--ink-seal);
+  border-radius: var(--radius);
+  vertical-align: middle;
+  transition: all 0.2s ease-out;
+}
+
+.deep-link:hover {
+  color: var(--ink-seal-paper);
+  background: var(--ink-seal);
+  text-decoration: none;
 }
 
 /* 轶事层：朱批样式，有出处的旧闻小事 */
